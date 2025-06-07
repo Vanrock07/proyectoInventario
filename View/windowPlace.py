@@ -1,0 +1,65 @@
+
+from tkinter import StringVar
+from tkinter import ttk, messagebox
+import tkinter as tk
+
+
+#contructor
+class PlaceDataWindow:
+    def __init__(self, controller):
+        # Configuración de la ventana principal
+        self.controller = controller
+        self.window_Place = tk.Toplevel()
+        self.window_Place.title("Datos de Sede")
+        self.window_Place.minsize(width=280, height=200)
+        self.window_Place.config(padx=50, pady=30)
+        
+        # Variables para almacenar los datos
+        self.city = StringVar()
+        self.site = StringVar()
+        self.cost_center = StringVar()
+        
+        self._setup_ui()
+        
+#metodos de la clase        
+    def _setup_ui(self):       
+        """Crea y organiza todos los elementos de la interfaz"""
+        # Frame principal para mejor organización
+        self.frame = ttk.Frame(self.window_Place, padding="20")
+        self.frame.pack(fill='both', expand=True)
+        
+        # Ciudad
+        ttk.Label(self.frame, text="Ciudad").grid(column=0, row=1, pady=(0, 5))
+        ttk.Entry(self.frame, width=30, textvariable=self.city).grid(column=0, row=2, pady=(0, 10))
+        # Sede
+        ttk.Label(self.frame, text="Sede").grid(column=0, row=3, pady=(0, 5))
+        ttk.Entry(self.frame, width=30, textvariable=self.site).grid(column=0, row=4, pady=(0, 10))
+        
+        # Centro de costos
+        ttk.Label(self.frame, text="Centro de costos").grid(column=0, row=5, pady=(0, 5))
+        ttk.Entry(self.frame, width=30, textvariable=self.cost_center).grid(column=0, row=6, pady=(0, 15))
+        
+        # Botón de guardar
+        ttk.Button(
+            self.frame, 
+            text="Guardar", 
+            command=self.controller.guardarDatoSede
+        ).grid(column=0, row=7) 
+        
+    def get_place_data(self):
+        """Método para manejar el guardado de datos"""  
+        # self.controller.open_user_window()
+        # self.window_Place.destroy()
+        return {
+            "ciudad": self.city.get(),
+            "sede": self.site.get(),
+            "centro de costos": self.cost_center.get()
+         }
+        
+    def mostrar_mensaje(self, titulo, mensaje):
+        messagebox.showinfo(titulo, mensaje)
+        
+    def runPlace(self):
+        """Inicia el bucle principal de la aplicación"""
+        self.window_Place.mainloop()
+             
