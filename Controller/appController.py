@@ -7,7 +7,7 @@ from View.windowMonitor import MonitorDataWindow
 from View.windowGadgets import GadgetsDataWindow
 from View.windowSheet import SheetWindow
 from Model.dataPlace import modeloDatos
-
+from Model.saveData import ExportData
 
 class AppController:
     """Controlador principal que maneja la lógica de la aplicación"""
@@ -20,7 +20,8 @@ class AppController:
         self.monitor_view = None
         self.gadgets_view = None
         self.sheet_view = None
-   
+        #self.export = ExportData()
+
   #CONTROLADOR DE DESPLIEGUE DE VENTANAS        
     def open_place_window(self):
         if not self.place_view:
@@ -45,12 +46,14 @@ class AppController:
     def open_sheet_window(self): 
         if not self.sheet_view:
             self.sheet_view = SheetWindow(self)      
-     
-     
-    #CONTROLADOR DE GUARDADO DE DATOS     
-              
-    def guardarDatoSede(self):
         
+    def export_data(self):
+        self.export = ExportData(self)
+
+    #CONTROLADOR DE GUARDADO DE DATOS
+
+    def guardarDatoSede(self):
+
         datos = self.place_view.get_place_data()
         
         if not all(datos.values()):
@@ -118,16 +121,16 @@ class AppController:
             return
         
         if self.model.saveData(datos):
+            self.export_data(self.model.data) #Crear metodo para guardar en excel
             self.gadgets_view.mostrar_mensaje("Éxito", f"Datos guardados:\n{self.model.data}")
             self.gadgets_view.window_Gdt.destroy()
-            
-        #Crear metodo para guardar en excel
-        self.computer_view.window_Pc.destroy()   
-        self.guardarDatos(self.model.data)
-          
-    def guardarDatos(self,datos):
-        print("Se guardaran los datos en la base de datos:" f"\n{datos}") #enviar a excel
-                                      
-                         
+                
+        self.computer_view.window_Pc.destroy()
+
+    def export_data(self, datos):
+       exporter = ExportData() 
+       exporter.saveDataToExcel(datos)
+       print("Se guardaran los datos en la base de datos:" f"\n{datos}") #enviar a excel
+                                                        
     def run(self):
         self.main_view.mainloop()

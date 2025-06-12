@@ -53,7 +53,7 @@ class ComputerDataWindow:
         return {
             "marca": self.marca.get(),
             "modelo": self.modelo.get(),
-            "seria;": self.serial.get(),
+            "serial": self.serial.get(),
             "activo": self.activo.get(),         
          }
     

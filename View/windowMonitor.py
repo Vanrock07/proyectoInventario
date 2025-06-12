@@ -51,10 +51,10 @@ class MonitorDataWindow:
     def get_mon_data(self):
         """Método para manejar el guardado de datos"""
         return {
-            "marca": self.marca.get(),
-            "modelo": self.modelo.get(),
-            "seria;": self.serial.get(),
-            "activo": self.activo.get(),         
+            "marcaM": self.marca.get(),
+            "modeloM": self.modelo.get(),
+            "serialM": self.serial.get(),
+            "activoM": self.activo.get(),         
          }
     
     def mostrar_mensaje(self, titulo, mensaje):
