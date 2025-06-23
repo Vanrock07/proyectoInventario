@@ -116,13 +116,13 @@ class AppController:
         
         datos = self.gadgets_view.get_gadget_data()
         
-        if not all(datos.values()):
-            self.gadgets_view.mostrar_mensaje("Error", "Todos los campos son obligatorios")
-            return
+        # if not all(datos.values()):
+        #     self.gadgets_view.mostrar_mensaje("Error", "Todos los campos son obligatorios")
+        #     return
         
         if self.model.saveData(datos):
             self.export_data(self.model.data) #Crear metodo para guardar en excel
-            self.gadgets_view.mostrar_mensaje("Éxito", f"Datos guardados:\n{self.model.data}")
+            self.gadgets_view.mostrar_mensaje("Éxito", f"Datos guardados")
             self.gadgets_view.window_Gdt.destroy()
                 
         self.computer_view.window_Pc.destroy()
@@ -132,7 +132,7 @@ class AppController:
        exporter = ExportData() 
        exporter.saveDataToExcel(datos)
        acta = saveDataToPDF(datos)
-       print("Se guardaran los datos en la base de datos:" f"\n{datos}") 
+       print("Se guardaron los datos en la base de datos") 
        return acta 
        #enviar a excel
        

@@ -52,8 +52,10 @@ class GadgetsDataWindow:
            
     def get_gadget_data(self):
         """Método para manejar el guardado de datos"""
+        accesorios_seleccionados = [nombre for nombre, var in self.check_vars.items() if var.get()]
         return {
-            "accesorios": self.gadgets.get(),
+            "accesorios": ", ".join(accesorios_seleccionados),
+            "otros": self.gadgets.get(),
             "observaciones": self.observaciones.get("1.0", tk.END).strip()
          }
     

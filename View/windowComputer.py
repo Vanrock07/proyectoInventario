@@ -72,6 +72,10 @@ class ComputerDataWindow:
             command=self.controller.guardarDatosPc
             ).grid(column=0, row=11)
         
+        # Configurar valores por defecto
+        self.tipo.set("LAPTOP")  # Valor por defecto
+        self.marca.set("HP")        
+        self.modelo.set("PROBOOK 440 G9")
         self.disco.set("SSD")
         self.tamano.set("512 GB")
         self.ram.set("16 GB")
@@ -94,7 +98,6 @@ class ComputerDataWindow:
     
     def mostrar_mensaje(self, titulo, mensaje):
         messagebox.showinfo(titulo, mensaje)    
-
 
     def runUsr(self):
         """Inicia el bucle principal de la aplicación"""

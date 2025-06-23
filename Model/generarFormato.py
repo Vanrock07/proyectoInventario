@@ -40,7 +40,7 @@ def write_in_pdf1(dataToExport):
         can.drawString(80, 582, dataToExport["marcaM"]) # Marca del monitor
         can.drawString(200, 582, dataToExport["serialM"])  # serial del monitor
         can.drawString(347, 582, dataToExport["activoM"]) # activo del monitor
-        can.drawString(80, 556, dataToExport["accesorios"]) # accesorios
+        can.drawString(80, 556, f'{dataToExport["accesorios"]}, {dataToExport["otros"]}') # accesorios
         can.drawString(110, 530, dataToExport["ciudad"]) # ciudad
         can.drawString(200, 530, dataToExport["sede"])  # sede
         can.drawString(347, 530, dataToExport["ubicacion"])  # ubicación
