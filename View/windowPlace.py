@@ -4,7 +4,7 @@ from tkinter import ttk, messagebox
 import tkinter as tk
 
 
-#contructor
+#constructor
 class PlaceDataWindow:
     def __init__(self, controller):
         # Configuración de la ventana principal
