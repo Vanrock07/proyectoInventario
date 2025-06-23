@@ -36,6 +36,13 @@ class MainWindow:
         )
         self.btn3_open.pack(pady=10)
         
+        self.btn4_open = ttk.Button(
+            self.frame, 
+            text="Generar Acta",
+            command = self.controller.generar_acta  # //navegar a la ventana de acta con los datos de la sede ya cargados
+        )
+        self.btn4_open.pack(pady=10)
+        
         self.label_data = ttk.Label(self.frame, text="")
         self.label_data.pack(pady=10)
         

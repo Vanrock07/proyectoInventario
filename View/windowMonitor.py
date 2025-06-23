@@ -31,8 +31,8 @@ class MonitorDataWindow:
         ttk.Entry(self.frame, width=40, textvariable=self.marca).grid(column=0, row=2, pady=(0, 10))
         
         # Modelo
-        ttk.Label(self.frame, text="Modelo").grid(column=0, row=3, pady=(0, 5))
-        ttk.Entry(self.frame, width=30, textvariable=self.modelo).grid(column=0, row=4, pady=(0, 10))
+        # ttk.Label(self.frame, text="Modelo").grid(column=0, row=3, pady=(0, 5))
+        # ttk.Entry(self.frame, width=30, textvariable=self.modelo).grid(column=0, row=4, pady=(0, 10))
         
           # Serial
         ttk.Label(self.frame, text="Serial").grid(column=0, row=5, pady=(0, 5))
@@ -52,7 +52,7 @@ class MonitorDataWindow:
         """Método para manejar el guardado de datos"""
         return {
             "marcaM": self.marca.get(),
-            "modeloM": self.modelo.get(),
+           # "modeloM": self.modelo.get(),
             "serialM": self.serial.get(),
             "activoM": self.activo.get(),         
          }

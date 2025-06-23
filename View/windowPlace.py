@@ -19,6 +19,7 @@ class PlaceDataWindow:
         self.city = StringVar()
         self.site = StringVar()
         self.cost_center = StringVar()
+        self.ubicacion = StringVar()  # Variable para ubicación, si es necesario
         
         self._setup_ui()
 
@@ -41,13 +42,15 @@ class PlaceDataWindow:
         # Centro de costos
         ttk.Label(self.frame, text="Centro de costos").grid(column=0, row=8, pady=(0, 5))
         ttk.Entry(self.frame, width=30, textvariable=self.cost_center).grid(column=0, row=9, pady=(0, 15))
-        
+        # Ubicación
+        ttk.Label(self.frame, text="Ubicacion").grid(column=0, row=10, pady=(0, 5))
+        ttk.Entry(self.frame, width=30, textvariable=self.ubicacion).grid(column=0, row=11, pady=(0, 15))
         # Botón de guardar
         ttk.Button(
             self.frame, 
             text="Guardar", 
             command=self.controller.guardarDatoSede
-        ).grid(column=0, row=11) 
+        ).grid(column=0, row=12) 
         
     def get_place_data(self):
         """Método para manejar el guardado de datos"""  
@@ -57,7 +60,8 @@ class PlaceDataWindow:
             "fecha": self.fecha.get(),
             "ciudad": self.city.get(),
             "sede": self.site.get(),
-            "centro de costos": self.cost_center.get()
+            "centro de costos": self.cost_center.get(),
+            "ubicacion": self.ubicacion.get()
          }
         
     def mostrar_mensaje(self, titulo, mensaje):

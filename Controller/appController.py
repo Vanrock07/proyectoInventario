@@ -8,6 +8,7 @@ from View.windowGadgets import GadgetsDataWindow
 from View.windowSheet import SheetWindow
 from Model.dataPlace import modeloDatos
 from Model.saveData import ExportData
+from Model.generarFormato import saveDataToPDF
 
 class AppController:
     """Controlador principal que maneja la lógica de la aplicación"""
@@ -22,7 +23,7 @@ class AppController:
         self.sheet_view = None
         #self.export = ExportData()
 
-  #CONTROLADOR DE DESPLIEGUE DE VENTANAS        
+#CONTROLADOR DE DESPLIEGUE DE VENTANAS        
     def open_place_window(self):
         if not self.place_view:
            self.place_view =  PlaceDataWindow(self)
@@ -50,8 +51,7 @@ class AppController:
     def export_data(self):
         self.export = ExportData(self)
 
-    #CONTROLADOR DE GUARDADO DE DATOS
-
+#CONTROLADOR DE GUARDADO DE DATOS
     def guardarDatoSede(self):
 
         datos = self.place_view.get_place_data()
@@ -127,10 +127,20 @@ class AppController:
                 
         self.computer_view.window_Pc.destroy()
 
+# CONTROLADOR DE EXPORTACION DE DATOS
     def export_data(self, datos):
        exporter = ExportData() 
        exporter.saveDataToExcel(datos)
-       print("Se guardaran los datos en la base de datos:" f"\n{datos}") #enviar a excel
+       acta = saveDataToPDF(datos)
+       print("Se guardaran los datos en la base de datos:" f"\n{datos}") 
+       return acta 
+       #enviar a excel
+       
+# CONTROLADOR DE CREACION DE ACTA
+    def generar_acta():
+        saveDataToPDF()
+      #  print("Se generara el acta con los datos:" f"\n{datos}")
+              
                                                         
     def run(self):
         self.main_view.mainloop()

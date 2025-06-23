@@ -27,20 +27,34 @@ class GadgetsDataWindow:
         self.frame.pack(fill='both', expand=True)
         
         # Accesorios
-        ttk.Label(self.frame, text="Accesorios").grid(column=0, row=1, pady=(0, 5))
-        ttk.Entry(self.frame, width=40, textvariable=self.gadgets).grid(column=0, row=2, pady=(0, 10))
+        self.check_vars = {}
+        accesorios_opciones = ["Guaya", "Maleta", "Teclado", "Mouse", "Base", "Diadema"]
+        for idx, opcion in enumerate(accesorios_opciones):
+            var = tk.BooleanVar()
+            chk = ttk.Checkbutton(self.frame, text=opcion, variable=var)
+            chk.grid(column=0, row=1+idx, sticky='w')
+            self.check_vars[opcion] = var
+        # Otros accesorios
+        ttk.Label(self.frame, text="Otros").grid(column=0, row=7, pady=(0, 5))
+        ttk.Entry(self.frame, width=40, textvariable=self.gadgets).grid(column=0, row=8, pady=(0, 10))    
+        #observaciones
+        ttk.Label(self.frame, text="Observaciones").grid(column=0, row=9, pady=(0, 5))
+        #ttk.Entry(self.frame, width=40).grid(column=0, row=4, pady=(0, 10))
+        self.observaciones = tk.Text(self.frame, width=40, height=4)
+        self.observaciones.grid(column=0, row=10, pady=(0, 10))
        
         # Botón de guardar
         ttk.Button(
             self.frame, 
             text="Guardar", 
             command=self.controller.guardarDatosGadgets
-        ).grid(column=0, row=7) 
-        
+        ).grid(column=0, row=11) 
+           
     def get_gadget_data(self):
         """Método para manejar el guardado de datos"""
         return {
-            "accesorios": self.gadgets.get(),       
+            "accesorios": self.gadgets.get(),
+            "observaciones": self.observaciones.get("1.0", tk.END).strip()
          }
     
     def mostrar_mensaje(self, titulo, mensaje):
