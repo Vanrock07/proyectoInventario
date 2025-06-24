@@ -53,9 +53,7 @@ class PlaceDataWindow:
         ).grid(column=0, row=12) 
         
     def get_place_data(self):
-        """Método para manejar el guardado de datos"""  
-        # self.controller.open_user_window()
-        # self.window_Place.destroy()
+
         return {
             "fecha": self.fecha.get(),
             "ciudad": self.city.get(),

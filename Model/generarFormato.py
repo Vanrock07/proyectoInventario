@@ -16,11 +16,16 @@ import os
 
 name = "formato de prueba"
 
-def saveDataToPDF(datos):
+def saveDataToPDF(datos, pdf_path: str):
+    
+    if not os.path.exists(pdf_path):
+        raise FileNotFoundError(f"Plantilla PDF no encontrada: {pdf_path}")
+    
     dataToExport = {}
     dataToExport = datos # Asignar los datos a exportar
+    rutaPdf = os.path.abspath(pdf_path)  # Obtener la ruta absoluta del PDF
     fileName = dataToExport["activo"]  # Obtener el nombre del usuario o usar un valor por defecto 
-    input_pdf = "FORMATO MMTO CBOLIVAR.pdf"
+    input_pdf = rutaPdf  # Ruta del PDF de entrada"
     output_pdf = fileName + ".pdf"    
     
     generar_pdf(input_pdf, output_pdf, dataToExport) # llamar a la función para generar el PDF
@@ -40,7 +45,7 @@ def write_in_pdf1(dataToExport):
         can.drawString(80, 582, dataToExport["marcaM"]) # Marca del monitor
         can.drawString(200, 582, dataToExport["serialM"])  # serial del monitor
         can.drawString(347, 582, dataToExport["activoM"]) # activo del monitor
-        can.drawString(80, 556, f'{dataToExport["accesorios"]}, {dataToExport["otros"]}') # accesorios
+        can.drawString(80, 556, dataToExport["accesorios"]) # accesorios
         can.drawString(110, 530, dataToExport["ciudad"]) # ciudad
         can.drawString(200, 530, dataToExport["sede"])  # sede
         can.drawString(347, 530, dataToExport["ubicacion"])  # ubicación

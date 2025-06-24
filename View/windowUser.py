@@ -8,7 +8,6 @@ class UserDataWindow:
         # Configuración de la ventana principal
         self.controller = controller
         self.window_Usr = tk.Toplevel()
-       # self.window_Usr = Tk()
         self.window_Usr.title("Datos de usuario")
         self.window_Usr.minsize(width=280, height=200)
         self.window_Usr.config(padx=50, pady=30)

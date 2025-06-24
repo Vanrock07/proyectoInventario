@@ -8,8 +8,9 @@ sheet = workbook.active
 
 # Encabezados
 headers = [
-    "Fecha", "Ciudad", "Sede", "Centro de costos", "Nombre de Usuario",
-    "No de documento", "Marca de computador", "Modelo", "Serial", "Activo",
+    "Fecha", "Ciudad", "Sede", "Centro de costos","ubicacion", "Nombre de Usuario",
+    "No de documento","Tipo de equipo", "Marca de computador", "Modelo", "Serial",
+    "Activo","Tipo de disco","Tamano del disco","Memoria Ram", "Procesador",
     "Marca de monitor", "Serial", "Activo", "Accesorios", "Observaciones"
 ]
 
@@ -22,6 +23,6 @@ for col, header in enumerate(headers, start=1):
     column_letter = cell.column_letter  # Ajustar ancho de columna al texto del encabezado
     sheet.column_dimensions[column_letter].width = len(header) + 2  # +2 para un poco de espacio extra# Fondo azul
     
-sheet.auto_filter.ref = f"A1:O1" # Aplica autofiltro a los encabezados
+sheet.auto_filter.ref = f"A1:U1" # Aplica autofiltro a los encabezados
 workbook.save(filename="datosMantenimiento1.xlsx")
 

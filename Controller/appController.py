@@ -9,11 +9,16 @@ from View.windowSheet import SheetWindow
 from Model.dataPlace import modeloDatos
 from Model.saveData import ExportData
 from Model.generarFormato import saveDataToPDF
+from utils.path import resource_path
+
+
 
 class AppController:
     """Controlador principal que maneja la lógica de la aplicación"""
     def __init__(self):
-        self.model = modeloDatos()
+        self.excel_path = resource_path("files/datosMantenimiento1.xlsx") # Ruta al archivo Excel
+        self.pdf_path = resource_path("files/FORMATO MMTO CBOLIVAR.pdf") # Ruta al archivo PDF
+        self.model = modeloDatos() 
         self.main_view = MainWindow(self)
         self.place_view = None
         self.user_view = None
@@ -49,7 +54,7 @@ class AppController:
             self.sheet_view = SheetWindow(self)      
         
     def export_data(self):
-        self.export = ExportData(self)
+        self.export = ExportData(self, excel_path=self.excel_path)  # Crear instancia de ExportData
 
 #CONTROLADOR DE GUARDADO DE DATOS
     def guardarDatoSede(self):
@@ -129,13 +134,13 @@ class AppController:
 
 # CONTROLADOR DE EXPORTACION DE DATOS
     def export_data(self, datos):
-       exporter = ExportData() 
+       exporter = ExportData(self.excel_path) 
        exporter.saveDataToExcel(datos)
-       acta = saveDataToPDF(datos)
+       acta = saveDataToPDF(datos, self.pdf_path)
        print("Se guardaron los datos en la base de datos") 
        return acta 
        #enviar a excel
-       
+              
 # CONTROLADOR DE CREACION DE ACTA
     def generar_acta():
         saveDataToPDF()
