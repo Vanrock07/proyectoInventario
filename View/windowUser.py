@@ -4,9 +4,10 @@ import tkinter as tk
 
 
 class UserDataWindow:
-    def __init__(self, controller):
+    def __init__(self, controller, anterior = None):
         # Configuración de la ventana principal
         self.controller = controller
+        self.anterior = anterior
         self.window_Usr = tk.Toplevel()
         self.window_Usr.title("Datos de usuario")
         self.window_Usr.minsize(width=280, height=200)
@@ -34,9 +35,21 @@ class UserDataWindow:
         
         ttk.Button(
             self.frame, 
-            text="Guardar", 
-            command=self.controller.guardarDatosUsuario
+            text="Anterior", 
+            command=self.volver_atras
             ).grid(column=0, row=7)
+        
+        
+        ttk.Button(
+            self.frame, 
+            text="Siguiente", 
+            command=self.controller.guardarDatosUsuario
+            ).grid(column=1, row=7)
+     
+    def volver_atras(self):
+        self.window_Usr.destroy()
+        if self.anterior:
+            self.anterior.deiconify() 
         
     def get_user_data(self):
         """Método para manejar el guardado de datos"""  

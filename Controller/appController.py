@@ -5,13 +5,10 @@ from View.mainWindow import MainWindow
 from View.windowComputer import ComputerDataWindow
 from View.windowMonitor import MonitorDataWindow
 from View.windowGadgets import GadgetsDataWindow
-from View.windowSheet import SheetWindow
 from Model.dataPlace import modeloDatos
 from Model.saveData import ExportData
 from Model.generarFormato import saveDataToPDF
 from utils.path import resource_path
-
-
 
 class AppController:
     """Controlador principal que maneja la lógica de la aplicación"""
@@ -29,32 +26,70 @@ class AppController:
         #self.export = ExportData()
 
 #CONTROLADOR DE DESPLIEGUE DE VENTANAS        
-    def open_place_window(self):
-        if not self.place_view:
-           self.place_view =  PlaceDataWindow(self)
-         
-    def open_user_window(self):
-        if not self.user_view:
-            self.user_view = UserDataWindow(self)
-            
-    def open_computer_window(self):
-        if not self.computer_view:
-            self.computer_view = ComputerDataWindow(self)
-                   
-    def open_monitor_window(self): 
-        if not self.monitor_view:
-            self.monitor_view = MonitorDataWindow(self)  
-            
-    def open_gadgets_window(self): 
-        if not self.gadgets_view:
-            self.gadgets_view = GadgetsDataWindow(self)
-            
-    def open_sheet_window(self): 
-        if not self.sheet_view:
-            self.sheet_view = SheetWindow(self)      
+    def open_place_window(self):            # Si ya existe una ventana de sede, ciérrala antes de abrir una nueva
+        if self.place_view is not None:
+            try:
+                self.place_view.window_Place.destroy()
+            except:
+                pass
+            self.place_view = None
+        self.place_view = PlaceDataWindow(self)
         
-    def export_data(self):
-        self.export = ExportData(self, excel_path=self.excel_path)  # Crear instancia de ExportData
+         
+    def open_user_window(self, anterior = None):
+        if self.user_view is not None:
+            try:
+                self.user_view.window_Usr.destroy()
+            except:
+                pass
+            self.user_view = None
+        if anterior:
+            anterior.withdraw()
+        self.user_view = UserDataWindow(self, anterior=anterior)       
+        #self.user_view = UserDataWindow(self)
+            
+    def open_computer_window(self, anterior=None):
+        if self.computer_view is not None:
+            try:
+                self.computer_view.window_Pc.destroy()
+            except:
+                pass
+            self.computer_view = None
+        if anterior:
+            anterior.withdraw()
+        self.computer_view = ComputerDataWindow(self, anterior=anterior)    
+        # self.computer_view = ComputerDataWindow(self)
+                   
+    def open_monitor_window(self, anterior = None): 
+        if self.monitor_view is not None:
+            try:
+                self.monitor_view.window_Mon.destroy()
+            except:
+                pass
+            self.monitor_view = None    
+        if anterior:
+            anterior.withdraw()
+        self.monitor_view = MonitorDataWindow(self, anterior=anterior)      
+       #@ self.monitor_view = MonitorDataWindow(self)  
+            
+    def open_gadgets_window(self, anterior = None ): 
+        if self.gadgets_view is not None:
+            try:
+                self.gadgets_view.window_Gdt.destroy()
+            except:
+                pass
+            self.gadgets_view = None
+        if anterior:
+            anterior.withdraw()
+        self.gadgets_view = GadgetsDataWindow(self, anterior=anterior)     
+        # self.gadgets_view = GadgetsDataWindow(self)
+            
+    # def open_sheet_window(self): 
+    #     if not self.sheet_view:
+    #         self.sheet_view = SheetWindow(self)      
+        
+    # def export_data(self):
+    #     self.export = ExportData(self, excel_path=self.excel_path)  # Crear instancia de ExportData
 
 #CONTROLADOR DE GUARDADO DE DATOS
     def guardarDatoSede(self):
@@ -67,10 +102,13 @@ class AppController:
         
         if self.model.saveData(datos):
             self.place_view.mostrar_mensaje("Éxito", f"Datos guardados:\n{self.model.data}")
-            self.place_view.window_Place.destroy()
+            self.place_view.window_Place.withdraw()
+            self.open_user_window(anterior=self.place_view.window_Place)
             
-        self.open_user_window()
-        self.place_view.window_Place.destroy()    
+           # self.place_view.window_Place.destroy()
+            
+       # self.open_user_window()
+       # self.place_view.window_Place.destroy()    
      
     def guardarDatosUsuario(self):
         
@@ -81,11 +119,15 @@ class AppController:
             return
         
         if self.model.saveData(datos):
-            self.user_view.mostrar_mensaje("Éxito", f"Datos guardados:\n{self.model.data}")
-            self.user_view.window_Usr.destroy()
+            self.user_view.mostrar_mensaje("Éxito", f"Datos guardados")
+            self.user_view.window_Usr.withdraw()
+            self.open_computer_window(anterior=self.user_view.window_Usr)
             
-        self.open_computer_window()
-        self.user_view.window_Usr.destroy()  
+            
+        #     self.user_view.window_Usr.destroy()
+            
+        # self.open_computer_window()
+        # self.user_view.window_Usr.destroy()  
         
     def guardarDatosPc(self):
         
@@ -96,11 +138,14 @@ class AppController:
             return
         
         if self.model.saveData(datos):
-            self.computer_view.mostrar_mensaje("Éxito", f"Datos guardados:\n{self.model.data}")
-            self.computer_view.window_Pc.destroy()
+            self.computer_view.mostrar_mensaje("Éxito", f"Datos guardados")
+            self.computer_view.window_Pc.withdraw()
+            self.open_monitor_window(anterior=self.computer_view.window_Pc)
             
-        self.open_monitor_window()
-        self.computer_view.window_Pc.destroy()   
+        #   self.computer_view.window_Pc.destroy()
+            
+        # self.open_monitor_window()
+        # self.computer_view.window_Pc.destroy()   
         
     def guardarDatosMonitor(self):
         
@@ -111,11 +156,15 @@ class AppController:
             return
         
         if self.model.saveData(datos):
-            self.monitor_view.mostrar_mensaje("Éxito", f"Datos guardados:\n{self.model.data}")
-            self.monitor_view.window_Mon.destroy()
+            self.monitor_view.mostrar_mensaje("Éxito", f"Datos guardados")
+            self.monitor_view.window_Mon.withdraw()
+            self.open_gadgets_window(anterior=self.monitor_view.window_Mon)
             
-        self.open_gadgets_window()
-        self.computer_view.window_Pc.destroy()    
+            
+        #   self.monitor_view.window_Mon.destroy()
+            
+        # self.open_gadgets_window()
+        # self.computer_view.window_Pc.destroy()    
         
     def guardarDatosGadgets(self):
         
@@ -131,6 +180,9 @@ class AppController:
             self.gadgets_view.window_Gdt.destroy()
                 
         self.computer_view.window_Pc.destroy()
+        self.monitor_view.window_Mon.destroy()
+        self.user_view.window_Usr.destroy()
+        self.place_view.window_Place.destroy()
 
 # CONTROLADOR DE EXPORTACION DE DATOS
     def export_data(self, datos):

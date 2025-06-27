@@ -52,6 +52,13 @@ class PlaceDataWindow:
             command=self.controller.guardarDatoSede
         ).grid(column=0, row=12) 
         
+        self.fecha.set("27 de junio de 2025")  # Valor por defecto
+        self.city.set("Bogotá")        
+        self.site.set("Tintal")
+        self.cost_center.set("11601")
+        self.ubicacion.set("Oficina Tintal")
+        
+        
     def get_place_data(self):
 
         return {

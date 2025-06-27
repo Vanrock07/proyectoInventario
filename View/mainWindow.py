@@ -31,15 +31,17 @@ class MainWindow:
         
         self.btn3_open = ttk.Button(
             self.frame, 
-            text="Salir",
-            command= self.root.destroy
+            text="Generar Acta",
+            command = self.controller.generar_acta  # //navegar a la ventana de acta con los datos de la sede ya cargados
+            
         )
         self.btn3_open.pack(pady=10)
         
         self.btn4_open = ttk.Button(
             self.frame, 
-            text="Generar Acta",
-            command = self.controller.generar_acta  # //navegar a la ventana de acta con los datos de la sede ya cargados
+            text="Salir",
+            command= self.root.destroy
+            
         )
         self.btn4_open.pack(pady=10)
         

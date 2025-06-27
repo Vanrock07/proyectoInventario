@@ -4,9 +4,10 @@ from tkinter import ttk, messagebox
 import tkinter as tk
 
 class GadgetsDataWindow:
-    def __init__(self, controller):
+    def __init__(self, controller, anterior = None):
         # Configuración de la ventana principal
         self.controller = controller
+        self.anterior = anterior
         self.window_Gdt = tk.Toplevel()
         self.window_Gdt.title("Accesorios")
         self.window_Gdt.minsize(width=280, height=200)
@@ -43,13 +44,24 @@ class GadgetsDataWindow:
         self.observaciones = tk.Text(self.frame, width=40, height=4)
         self.observaciones.grid(column=0, row=10, pady=(0, 10))
        
+        ttk.Button(
+            self.frame, 
+            text="Atras", 
+            command=self.volver_atras
+            ).grid(column=0, row=11)
+        
         # Botón de guardar
         ttk.Button(
             self.frame, 
             text="Guardar", 
             command=self.controller.guardarDatosGadgets
-        ).grid(column=0, row=11) 
+        ).grid(column=1, row=11) 
            
+    def volver_atras(self):
+        self.window_Gdt.destroy()
+        if self.anterior:
+            self.anterior.deiconify()
+    
     def get_gadget_data(self):
         """Método para manejar el guardado de datos"""
         accesorios_seleccionados = [nombre for nombre, var in self.check_vars.items() if var.get()]

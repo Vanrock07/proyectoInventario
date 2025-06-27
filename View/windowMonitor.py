@@ -3,9 +3,10 @@ from tkinter import ttk, messagebox
 from tkinter import StringVar
 
 class MonitorDataWindow:  
-    def __init__(self, controller):
+    def __init__(self, controller, anterior = None):
                 # Configuración de la ventana principal
         self.controller = controller
+        self.anterior = anterior
         self.window_Mon = tk.Toplevel()
        # self.window_Usr = Tk()
         self.window_Mon.title("MVC Datos del monitor")
@@ -44,9 +45,20 @@ class MonitorDataWindow:
         
         ttk.Button(
             self.frame, 
-            text="Guardar", 
-            command=self.controller.guardarDatosMonitor
+            text="Anterior", 
+            command=self.volver_atras
             ).grid(column=0, row=9)
+        
+        ttk.Button(
+            self.frame, 
+            text="Siguiente", 
+            command=self.controller.guardarDatosMonitor
+            ).grid(column=1, row=9)
+     
+    def volver_atras(self):
+        self.window_Mon.destroy()
+        if self.anterior:
+            self.anterior.deiconify()
         
     def get_mon_data(self):
         """Método para manejar el guardado de datos"""

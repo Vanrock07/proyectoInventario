@@ -54,6 +54,11 @@ def write_in_pdf1(dataToExport):
         can.drawString(310, 448, dataToExport["ram"])  # memoria RAM
         can.drawString(375, 448, dataToExport["procesador"])  # procesador
         
+        if dataToExport["sistema operativo"] == "Windows 10":
+            x = 123  
+        elif dataToExport["sistema operativo"] == "Windows 11":
+            x = 314
+        can.drawString(x, 279, "X")  
     
         can.setFont("Times-Roman", 7)
         can.drawString(246, 608, f'{dataToExport["marca"]} , {dataToExport["modelo"]}') #marca y modelo del equipo
