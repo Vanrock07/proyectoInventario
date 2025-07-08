@@ -159,7 +159,7 @@ class AppController2:
         if respuesta:   # Lógica para exportar los datos
             self.exportar_datos(self.model.data)
             self.show_place_frame()
-            self.new_data_insert()
+           # self.new_data_insert()
         else:
             messagebox.showinfo("Cancelado", "Exportación cancelada.")
   
